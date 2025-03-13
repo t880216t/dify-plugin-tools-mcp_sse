@@ -7,7 +7,7 @@ label:
   zh_Hans: MCP SSE
 description:
   en_US: Discover and invoke tools by MCP protocol through HTTP with SSE transport.
-  zh_Hans: 通过HTTP with SSE传输使用MCP协议来发现和调用工具。
+  zh_Hans: 通过 HTTP with SSE 传输使用 MCP 协议来发现和调用工具。
 icon: icon.png
 resource:
   memory: 268435456

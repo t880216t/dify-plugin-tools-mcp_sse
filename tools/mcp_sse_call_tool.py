@@ -42,11 +42,10 @@ class McpSseTool(Tool):
                     await client.initialize()
                     tools = await client.list_tools()
                 except Exception as e:
+                    await client.cleanup()
                     error_msg = f"Error initializing or list tools: {str(e)}"
                     logging.error(error_msg)
                     continue
-                finally:
-                    await client.cleanup()
                 if any(tool.name == tool_name for tool in tools):
                     try:
                         result = await client.execute_tool(tool_name, arguments)
