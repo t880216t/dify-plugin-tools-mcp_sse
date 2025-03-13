@@ -43,6 +43,8 @@ Can install the plugin using the GitHub repository address. Visit the Dify platf
 
 ![install_plugin_via_github](./images/install_plugin_via_github.png)
 
+![install_plugin_via_github](./images/install_plugin_via_github_successfully.png)
+
 
 
 ---
