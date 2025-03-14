@@ -1,6 +1,5 @@
 import asyncio
 import json
-import logging
 from typing import Any
 
 from dify_plugin import ToolProvider
@@ -18,7 +17,7 @@ class McpSseProvider(ToolProvider):
             servers_config = json.loads(servers_config_json)
         except json.JSONDecodeError as e:
             raise ValueError(f"servers_config must be a valid JSON string: {e}")
-        print(servers_config)
+
         clients = [
             McpSseClient(name, config) for name, config in servers_config.items()
         ]
