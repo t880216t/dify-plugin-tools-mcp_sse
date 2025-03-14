@@ -1,4 +1,4 @@
-version: 0.0.1
+version: 0.0.2
 type: plugin
 author: junjiem
 name: mcp_sse
@@ -6,7 +6,7 @@ label:
   en_US: MCP SSE
   zh_Hans: MCP SSE
 description:
-  en_US: Discover and invoke tools by MCP protocol through HTTP with SSE transport.
+  en_US: Fetch and call tools by MCP protocol through HTTP with SSE transport.
   zh_Hans: 通过 HTTP with SSE 传输使用 MCP 协议来发现和调用工具。
 icon: icon.png
 resource:
@@ -16,7 +16,7 @@ plugins:
   tools:
     - provider/mcp_sse.yaml
 meta:
-  version: 0.0.1
+  version: 0.0.2
   arch:
     - amd64
     - arm64

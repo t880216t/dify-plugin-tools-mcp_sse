@@ -8,40 +8,6 @@ from mcp import ClientSession
 from mcp.client.sse import sse_client
 
 
-class McpTool:
-    """Represents a tool with its properties and formatting."""
-
-    def __init__(
-            self, name: str, description: str, input_schema: dict[str, Any]
-    ) -> None:
-        self.name: str = name
-        self.description: str = description
-        self.input_schema: dict[str, Any] = input_schema
-
-    def format_for_llm(self) -> str:
-        """Format tool information for LLM.
-
-        Returns:
-            A formatted string describing the tool.
-        """
-        args_desc = []
-        if "properties" in self.input_schema:
-            for param_name, param_info in self.input_schema["properties"].items():
-                arg_desc = (
-                    f"- {param_name}: {param_info.get('description', 'No description')}"
-                )
-                if param_name in self.input_schema.get("required", []):
-                    arg_desc += " (required)"
-                args_desc.append(arg_desc)
-
-        return f"""
-Tool: {self.name}
-Description: {self.description}
-Arguments:
-{chr(10).join(args_desc)}
-"""
-
-
 class McpSseClient:
     """Manages MCP server connections and tool execution."""
 
@@ -72,7 +38,7 @@ class McpSseClient:
             await self.cleanup()
             raise
 
-    async def list_tools(self) -> list[McpTool]:
+    async def list_tools(self) -> list[types.Tool]:
         """List available tools from the server.
 
         Returns:
@@ -84,15 +50,8 @@ class McpSseClient:
         if not self.session:
             raise RuntimeError(f"Server '{self.name}' session not initialized")
 
-        tools_response = await self.session.list_tools()
-        tools: list[McpTool] = []
-
-        for item in tools_response:
-            if isinstance(item, tuple) and item[0] == "tools":
-                for tool in item[1]:
-                    tools.append(McpTool(tool.name, tool.description, tool.inputSchema))
-
-        return tools
+        result = await self.session.list_tools()
+        return result.tools
 
     async def execute_tool(
             self,
@@ -124,9 +83,7 @@ class McpSseClient:
             try:
                 logging.info(f"Executing {tool_name}...")
                 result = await self.session.call_tool(tool_name, arguments)
-
                 return result
-
             except Exception as e:
                 attempt += 1
                 logging.warning(

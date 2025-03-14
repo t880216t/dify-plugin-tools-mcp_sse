@@ -2,7 +2,7 @@
 
 
 **Author:** [Junjie.M](https://github.com/junjiem)  
-**Version:** 0.0.1  
+**Version:** 0.0.2  
 **Type:** tool  
 **Github Repo:** [https://github.com/junjiem/dify-plugin-tools-mcp_sse](https://github.com/junjiem/dify-plugin-tools-mcp_sse)  
 **Github Issues:** [issues](https://github.com/junjiem/dify-plugin-tools-mcp_sse/issues)
@@ -11,7 +11,7 @@
 ---
 
 
-### Demonstration
+### Description
 
 ![mcp_sse_plugin](./images/mcp_sse_plugin.png)
 
@@ -30,10 +30,7 @@ MCP服务配置，支持多个MCP服务。 如下示例：
     "sse_read_timeout": 300
   },
   "server_name2": {
-    "url": "http://127.0.0.1:8001/sse",
-    "headers": {},
-    "timeout": 5,
-    "sse_read_timeout": 300
+    "url": "http://127.0.0.1:8001/sse"
   }
 }
 ```

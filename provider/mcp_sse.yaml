@@ -5,7 +5,7 @@ identity:
     en_US: MCP tools Via SSE
     zh_Hans: 通过SSE发现和调用MCP工具
   description:
-    en_US: Discover and invoke tools by MCP protocol through HTTP with SSE transport.
+    en_US: Fetch and call tools by MCP protocol through HTTP with SSE transport.
     zh_Hans: 通过HTTP with SSE传输使用MCP协议发现和调用工具。
   icon: icon.png
 tools:
