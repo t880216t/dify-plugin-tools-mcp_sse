@@ -1,6 +1,12 @@
 ## Dify 1.0 Plugin MCP HTTP with SSE transport Tools
 
 
+**Author:** [Junjie.M](https://github.com/junjiem)  
+**Version:** 0.0.1  
+**Type:** tool  
+**Repository:** [repository](https://github.com/junjiem/dify-plugin-tools-mcp_sse)  
+**Issues:** [issues](https://github.com/junjiem/dify-plugin-tools-mcp_sse/issues)
+
 
 ---
 
