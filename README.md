@@ -13,9 +13,9 @@
 
 ### Description
 
-![mcp_sse_plugin](./images/mcp_sse_plugin.png)
+![mcp_sse_plugin](_assets/mcp_sse_plugin.png)
 
-![mcp_sse_plugin_set_authorization](./images/mcp_sse_plugin_set_authorization.png)
+![mcp_sse_plugin_set_authorization](_assets/mcp_sse_plugin_set_authorization.png)
 
 MCP Servers config, support multiple MCP services. The following example:
 
@@ -36,7 +36,7 @@ MCP服务配置，支持多个MCP服务。 如下示例：
 ```
 
 
-![agent_add_mcp_see_tools](./images/agent_add_mcp_see_tools.png)
+![agent_add_mcp_see_tools](_assets/agent_add_mcp_see_tools.png)
 
 ### Installing Plugins via GitHub  通过 GitHub 安装插件
 
@@ -44,9 +44,9 @@ Can install the plugin using the GitHub repository address. Visit the Dify platf
 
 可以通过 GitHub 仓库地址安装该插件。访问 Dify 平台的插件管理页，选择通过 GitHub 安装插件，输入仓库地址后，选择版本号和包文件完成安装。
 
-![install_plugin_via_github](./images/install_plugin_via_github.png)
+![install_plugin_via_github](_assets/install_plugin_via_github.png)
 
-![install_plugin_via_github](./images/install_plugin_via_github_successfully.png)
+![install_plugin_via_github](_assets/install_plugin_via_github_successfully.png)
 
 
 
