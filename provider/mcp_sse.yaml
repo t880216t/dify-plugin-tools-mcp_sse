@@ -8,6 +8,8 @@ identity:
     en_US: Fetch and call tools by MCP protocol through HTTP with SSE transport.
     zh_Hans: 通过HTTP with SSE传输使用MCP协议发现和调用工具。
   icon: icon.png
+  tags:
+    - utilities
 tools:
   - tools/mcp_sse_list_tools.yaml
   - tools/mcp_sse_call_tool.yaml
