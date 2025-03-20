@@ -8,8 +8,7 @@ description:
   human:
     en_US: Fetch MCP Server tools list by HTTP with SSE transport.
     zh_Hans: 通过 HTTP with SSE 传输来获取MCP服务端的工具列表。
-  llm: Fetch MCP Server tools list (Gets a list of MCP tools in addition to existing tools,
-    and then invoke the MCP tool that meets the requirements based on the MCP tool information).
+  llm: Fetch MCP Server tools list (Gets a list of MCP tools in addition to existing tools).
 extra:
   python:
     source: tools/mcp_sse_list_tools.py
