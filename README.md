@@ -13,6 +13,10 @@
 
 ### Description
 
+Fetch and call tools by MCP protocol through HTTP with SSE transport.
+
+通过 HTTP with SSE 传输使用 MCP 协议来发现和调用工具。
+
 ![mcp_sse_plugin](_assets/mcp_sse_plugin.png)
 
 ![mcp_sse_plugin_set_authorization](_assets/mcp_sse_plugin_set_authorization.png)
