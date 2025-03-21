@@ -39,7 +39,12 @@ class McpSseTool(Tool):
             return all_tools
 
         try:
-            tools = asyncio.run(fetch_tools())
+            try:
+                loop = asyncio.get_running_loop()
+            except RuntimeError:
+                tools = asyncio.run(fetch_tools())
+            else:
+                tools = loop.run_until_complete(fetch_tools())
             tools_description = json.dumps(
                 [to_prompt_tool(tool).model_dump(mode="json") for tool in tools]
             )

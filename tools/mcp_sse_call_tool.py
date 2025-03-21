@@ -66,7 +66,12 @@ class McpSseTool(Tool):
                         await client.cleanup()
 
         try:
-            result = asyncio.run(execute_tool())
+            try:
+                loop = asyncio.get_running_loop()
+            except RuntimeError:
+                result = asyncio.run(execute_tool())
+            else:
+                result = loop.run_until_complete(execute_tool())
             yield self.create_text_message(result)
         except Exception as e:
             error_msg = f"Error executing tool: {str(e)}"
