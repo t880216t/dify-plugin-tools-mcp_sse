@@ -12,7 +12,7 @@ from httpx_sse import connect_sse
 class McpClient:
     def __init__(self, url: str,
                  headers: dict[str, Any] | None = None,
-                 timeout: float = 5,
+                 timeout: float = 60,
                  sse_read_timeout: float = 60 * 5,
                  ):
         self.url = url
@@ -128,7 +128,7 @@ def init_clients(servers_config: dict[str, Any]) -> list[McpClient]:
         McpClient(
             url=config.get("url"),
             headers=config.get("headers", None),
-            timeout=config.get("timeout", 5),
+            timeout=config.get("timeout", 60),
             sse_read_timeout=config.get("sse_read_timeout", 300),
         )
         for name, config in servers_config.items()
