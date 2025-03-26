@@ -1,11 +1,10 @@
-import asyncio
 import json
 from typing import Any
 
 from dify_plugin import ToolProvider
 from dify_plugin.errors.tool import ToolProviderCredentialValidationError
 
-from utils.mcp_sse_util import McpSseClient
+from utils.mcp_client import McpClientsUtil
 
 
 class McpSseProvider(ToolProvider):
@@ -18,22 +17,7 @@ class McpSseProvider(ToolProvider):
         except json.JSONDecodeError as e:
             raise ValueError(f"servers_config must be a valid JSON string: {e}")
 
-        clients = [
-            McpSseClient(name, config) for name, config in servers_config.items()
-        ]
-
-        async def fetch_tools():
-            all_tools = []
-            for client in clients:
-                try:
-                    await client.initialize()
-                    tools = await client.list_tools()
-                finally:
-                    await client.cleanup()
-                all_tools.extend(tools)
-            return all_tools
-
         try:
-            asyncio.run(fetch_tools())
+            McpClientsUtil.fetch_tools(servers_config)
         except Exception as e:
             raise ToolProviderCredentialValidationError(str(e))

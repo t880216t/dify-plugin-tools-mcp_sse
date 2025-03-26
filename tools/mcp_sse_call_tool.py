@@ -1,4 +1,3 @@
-import asyncio
 import json
 import logging
 from collections.abc import Generator
@@ -7,7 +6,7 @@ from typing import Any
 from dify_plugin import Tool
 from dify_plugin.entities.tool import ToolInvokeMessage
 
-from utils.mcp_sse_util import McpSseClient
+from utils.mcp_client import McpClientsUtil
 
 
 class McpSseTool(Tool):
@@ -32,46 +31,8 @@ class McpSseTool(Tool):
         except json.JSONDecodeError as e:
             raise ValueError(f"Arguments must be a valid JSON string: {e}")
 
-        clients = [
-            McpSseClient(name, config) for name, config in servers_config.items()
-        ]
-
-        async def execute_tool():
-            for client in clients:
-                try:
-                    await client.initialize()
-                    tools = await client.list_tools()
-                except Exception as e:
-                    await client.cleanup()
-                    error_msg = f"Error initializing or list tools: {str(e)}"
-                    logging.error(error_msg)
-                    continue
-                if any(tool.name == tool_name for tool in tools):
-                    try:
-                        result = await client.execute_tool(tool_name, arguments)
-                        if isinstance(result, dict) and "progress" in result:
-                            progress = result["progress"]
-                            total = result["total"]
-                            percentage = (progress / total) * 100
-                            logging.info(
-                                f"Progress: {progress}/{total} "
-                                f"({percentage:.1f}%)"
-                            )
-                        return f"Tool execution result: {result}"
-                    except Exception as e:
-                        error_msg = f"Error executing tool: {str(e)}"
-                        logging.error(error_msg)
-                        return error_msg
-                    finally:
-                        await client.cleanup()
-
         try:
-            try:
-                loop = asyncio.get_running_loop()
-            except RuntimeError:
-                result = asyncio.run(execute_tool())
-            else:
-                result = loop.run_until_complete(execute_tool())
+            result = McpClientsUtil.execute_tool(servers_config, tool_name, arguments)
             yield self.create_text_message(result)
         except Exception as e:
             error_msg = f"Error executing tool: {str(e)}"

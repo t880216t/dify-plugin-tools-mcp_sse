@@ -1,4 +1,3 @@
-import asyncio
 import json
 import logging
 from collections.abc import Generator
@@ -7,9 +6,8 @@ from typing import Any
 from dify_plugin import Tool
 from dify_plugin.entities.model.message import PromptMessageTool
 from dify_plugin.entities.tool import ToolInvokeMessage
-from mcp import types
 
-from utils.mcp_sse_util import McpSseClient
+from utils.mcp_client import McpClientsUtil
 
 
 class McpSseTool(Tool):
@@ -23,28 +21,8 @@ class McpSseTool(Tool):
         except json.JSONDecodeError as e:
             raise ValueError(f"servers_config must be a valid JSON string: {e}")
 
-        clients = [
-            McpSseClient(name, config) for name, config in servers_config.items()
-        ]
-
-        async def fetch_tools():
-            all_tools = []
-            for client in clients:
-                try:
-                    await client.initialize()
-                    tools = await client.list_tools()
-                finally:
-                    await client.cleanup()
-                all_tools.extend(tools)
-            return all_tools
-
         try:
-            try:
-                loop = asyncio.get_running_loop()
-            except RuntimeError:
-                tools = asyncio.run(fetch_tools())
-            else:
-                tools = loop.run_until_complete(fetch_tools())
+            tools = McpClientsUtil.fetch_tools(servers_config)
             tools_description = json.dumps(
                 [to_prompt_tool(tool).model_dump(mode="json") for tool in tools]
             )
@@ -55,12 +33,12 @@ class McpSseTool(Tool):
             yield self.create_text_message(error_msg)
 
 
-def to_prompt_tool(tool: types.Tool) -> PromptMessageTool:
+def to_prompt_tool(tool: dict) -> PromptMessageTool:
     """
     Tool to prompt message tool
     """
     return PromptMessageTool(
-        name=tool.name,
-        description=tool.description,
-        parameters=tool.inputSchema,
+        name=tool.get("name"),
+        description=tool.get("description", None),
+        parameters=tool.get("inputSchema"),
     )
