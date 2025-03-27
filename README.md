@@ -2,7 +2,6 @@
 
 
 **Author:** [Junjie.M](https://github.com/junjiem)  
-**Version:** 0.0.4  
 **Type:** tool  
 **Github Repo:** [https://github.com/junjiem/dify-plugin-tools-mcp_sse](https://github.com/junjiem/dify-plugin-tools-mcp_sse)  
 **Github Issues:** [issues](https://github.com/junjiem/dify-plugin-tools-mcp_sse/issues)
