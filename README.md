@@ -58,6 +58,11 @@ OR
 ![agent_add_mcp_see_tools](_assets/agent_add_mcp_see_tools.png)
 
 
+
+---
+
+
+
 ### Managed MCP Servers 托管的MCP服务器
 
 If you want to try MCP but don't know how to deploy SSE transport's MCP Server, can you try connect to Managed MCP Servers.
@@ -77,6 +82,7 @@ Reference Cursor Settings, shown below:
 参考 Cursor 设置，如下图：
 
 ![composio_mcp_cursor](_assets/composio_mcp_cursor.png)
+![composio_mcp_cursor2](_assets/composio_mcp_cursor2.png)
 
 MCP Servers config, shown below:
 
@@ -94,11 +100,15 @@ MCP 服务配置，如下示例：
 
 #### Example 2  示例2
 
-[MCP.so Managed MCP Servers](https://mcp.so/playground)
+[Zapier Managed MCP Servers](https://actions.zapier.com/settings/mcp)
 
-[MCP.so 托管的 MCP 服务器](https://mcp.so/playground)
+[Zapier 托管的 MCP 服务器](https://actions.zapier.com/settings/mcp)
 
-![mcpso_mcp_servers](_assets/mcpso_mcp_servers.png)
+Copy the MCP Server URL for use in the Dify plug-in configuration.
+
+复制 MCP Server URL，在 Dify 插件配置中使用。
+
+![zapier_mcp_servers](_assets/zapier_mcp_servers.png)
 
 MCP Servers config, shown below:
 
@@ -106,13 +116,31 @@ MCP 服务配置，如下示例：
 
 ```json
 {
-  "mcpServers": {
-    "@tavily-ai/tavily-mcp": {
-      "url": "https://router.mcp.so/sse/xxxxxxxxxx"
-    }
+  "zapier-mcp": {
+    "url": "https://actions.zapier.com/mcp/sk-xxxxxxxxxx/sse"
   }
 }
 ```
+
+Click "Edit MCP Actions" to go to the page for adding tools and actions.
+
+点击 “Edit MCP Actions” ，进入工具和操作的添加页面。
+
+![zapier_mcp_edit_actions](_assets/zapier_mcp_edit_actions.png)
+
+Click "Add a new action" to add the required MCP service instance.
+
+点击 “Add a new action”，添加需要的MCP服务实例。
+
+![zapier_mcp_add_actions](_assets/zapier_mcp_add_actions.png)
+
+You can also continue to add different actions to enrich the tool set available to the Agent.
+
+你还可以继续添加不同的 Action，丰富 Agent 可用的工具集。
+
+
+
+---
 
 
 
