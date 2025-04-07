@@ -1,4 +1,4 @@
-version: 0.0.7
+version: 0.0.8
 type: plugin
 author: junjiem
 name: mcp_sse
@@ -18,7 +18,7 @@ plugins:
 tags:
   - utilities
 meta:
-  version: 0.0.7
+  version: 0.0.1
   arch:
     - amd64
     - arm64
