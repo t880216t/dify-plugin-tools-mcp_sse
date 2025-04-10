@@ -28,7 +28,7 @@ class McpSseTool(Tool):
             )
             yield self.create_text_message(f"MCP Server tools list: \n{tools_description}")
         except Exception as e:
-            error_msg = f"Error fetching tools: {e}"
+            error_msg = f"Error listing MCP Server tools: {e}"
             logging.error(error_msg)
             yield self.create_text_message(error_msg)
 

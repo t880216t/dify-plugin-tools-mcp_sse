@@ -35,6 +35,6 @@ class McpSseTool(Tool):
             result = McpClientsUtil.execute_tool(servers_config, tool_name, arguments)
             yield self.create_text_message(result)
         except Exception as e:
-            error_msg = f"Error executing tool: {str(e)}"
+            error_msg = f"Error calling MCP Server tool: {str(e)}"
             logging.error(error_msg)
             yield self.create_text_message(error_msg)
