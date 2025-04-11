@@ -6,7 +6,7 @@ from typing import Any
 from dify_plugin import Tool
 from dify_plugin.entities.tool import ToolInvokeMessage
 
-from utils.mcp_client import McpClientsUtil
+from utils.mcp_client import McpClients
 
 
 class McpSseTool(Tool):
@@ -31,10 +31,15 @@ class McpSseTool(Tool):
         except json.JSONDecodeError as e:
             raise ValueError(f"Arguments must be a valid JSON string: {e}")
 
+        mcp_clients = None
         try:
-            result = McpClientsUtil.execute_tool(servers_config, tool_name, arguments)
+            mcp_clients = McpClients(servers_config)
+            result = mcp_clients.execute_tool(tool_name, arguments)
             yield self.create_text_message(result)
         except Exception as e:
             error_msg = f"Error calling MCP Server tool: {str(e)}"
             logging.error(error_msg)
             yield self.create_text_message(error_msg)
+        finally:
+            if mcp_clients:
+                mcp_clients.close()

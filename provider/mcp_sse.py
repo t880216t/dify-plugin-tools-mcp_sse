@@ -4,7 +4,7 @@ from typing import Any
 from dify_plugin import ToolProvider
 from dify_plugin.errors.tool import ToolProviderCredentialValidationError
 
-from utils.mcp_client import McpClientsUtil
+from utils.mcp_client import McpClients
 
 
 class McpSseProvider(ToolProvider):
@@ -17,7 +17,11 @@ class McpSseProvider(ToolProvider):
         except json.JSONDecodeError as e:
             raise ValueError(f"servers_config must be a valid JSON string: {e}")
 
+        mcp_clients = McpClients(servers_config)
         try:
-            McpClientsUtil.fetch_tools(servers_config)
+            mcp_clients.fetch_tools()
         except Exception as e:
             raise ToolProviderCredentialValidationError(str(e))
+        finally:
+            if mcp_clients:
+                mcp_clients.close()

@@ -7,7 +7,7 @@ from dify_plugin import Tool
 from dify_plugin.entities.model.message import PromptMessageTool
 from dify_plugin.entities.tool import ToolInvokeMessage
 
-from utils.mcp_client import McpClientsUtil
+from utils.mcp_client import McpClients
 
 
 class McpSseTool(Tool):
@@ -21,8 +21,10 @@ class McpSseTool(Tool):
         except json.JSONDecodeError as e:
             raise ValueError(f"servers_config must be a valid JSON string: {e}")
 
+        mcp_clients = None
         try:
-            tools = McpClientsUtil.fetch_tools(servers_config)
+            mcp_clients = McpClients(servers_config)
+            tools = mcp_clients.fetch_tools()
             tools_description = json.dumps(
                 [to_prompt_tool(tool).model_dump(mode="json") for tool in tools]
             )
@@ -31,6 +33,9 @@ class McpSseTool(Tool):
             error_msg = f"Error listing MCP Server tools: {e}"
             logging.error(error_msg)
             yield self.create_text_message(error_msg)
+        finally:
+            if mcp_clients:
+                mcp_clients.close()
 
 
 def to_prompt_tool(tool: dict) -> PromptMessageTool:
