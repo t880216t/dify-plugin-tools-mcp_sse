@@ -4,7 +4,6 @@ from collections.abc import Generator
 from typing import Any
 
 from dify_plugin import Tool
-from dify_plugin.entities.model.message import PromptMessageTool
 from dify_plugin.entities.tool import ToolInvokeMessage
 
 from utils.mcp_client import McpClients
@@ -25,10 +24,8 @@ class McpSseTool(Tool):
         try:
             mcp_clients = McpClients(servers_config)
             tools = mcp_clients.fetch_tools()
-            tools_description = json.dumps(
-                [to_prompt_tool(tool).model_dump(mode="json") for tool in tools]
-            )
-            yield self.create_text_message(f"MCP Server tools list: \n{tools_description}")
+            prompt_tools = [to_prompt_tool(tool) for tool in tools]
+            yield self.create_text_message(f"MCP Server tools list: \n{prompt_tools}")
         except Exception as e:
             error_msg = f"Error listing MCP Server tools: {e}"
             logging.error(error_msg)
@@ -38,12 +35,12 @@ class McpSseTool(Tool):
                 mcp_clients.close()
 
 
-def to_prompt_tool(tool: dict) -> PromptMessageTool:
+def to_prompt_tool(tool: dict) -> dict[str, Any]:
     """
     Tool to prompt message tool
     """
-    return PromptMessageTool(
-        name=tool.get("name"),
-        description=tool.get("description", None),
-        parameters=tool.get("inputSchema"),
-    )
+    return {
+        "name": tool.get("name"),
+        "description": tool.get("description", None),
+        "parameters": tool.get("inputSchema"),
+    }
