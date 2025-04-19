@@ -3,15 +3,15 @@ identity:
   author: junjiem
   label:
     en_US: Call MCP Tool
-    zh_Hans: 调用MCP工具
+    zh_Hans: 调用 MCP 工具
 description:
   human:
-    en_US: Call MCP Server tool by HTTP with SSE transport.
-    zh_Hans: 通过 HTTP with SSE 传输来调用MCP服务端工具。
+    en_US: Call MCP Server tool.
+    zh_Hans: 调用 MCP 服务端工具。
   llm: Call MCP Server tool.
 extra:
   python:
-    source: tools/mcp_sse_call_tool.py
+    source: tools/mcp_call_tool.py
 parameters:
   - name: tool_name
     type: string

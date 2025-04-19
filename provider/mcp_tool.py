@@ -7,7 +7,7 @@ from dify_plugin.errors.tool import ToolProviderCredentialValidationError
 from utils.mcp_client import McpClients
 
 
-class McpSseProvider(ToolProvider):
+class McpToolProvider(ToolProvider):
     def _validate_credentials(self, credentials: dict[str, Any]) -> None:
         servers_config_json = credentials.get("servers_config", "")
         if not servers_config_json:

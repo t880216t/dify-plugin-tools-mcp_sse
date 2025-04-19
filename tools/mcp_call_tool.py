@@ -9,7 +9,7 @@ from dify_plugin.entities.tool import ToolInvokeMessage
 from utils.mcp_client import McpClients
 
 
-class McpSseTool(Tool):
+class McpTool(Tool):
 
     def _invoke(self, tool_parameters: dict[str, Any]) -> Generator[ToolInvokeMessage]:
         servers_config_json = self.runtime.credentials.get("servers_config", "")
@@ -20,27 +20,26 @@ class McpSseTool(Tool):
         except json.JSONDecodeError as e:
             raise ValueError(f"servers_config must be a valid JSON string: {e}")
 
+        tool_name = tool_parameters.get("tool_name", "")
+        if not tool_name:
+            raise ValueError("Please fill in the tool_name")
+        arguments_json = tool_parameters.get("arguments", "")
+        if not arguments_json:
+            raise ValueError("Please fill in the arguments")
+        try:
+            arguments = json.loads(arguments_json)
+        except json.JSONDecodeError as e:
+            raise ValueError(f"Arguments must be a valid JSON string: {e}")
+
         mcp_clients = None
         try:
             mcp_clients = McpClients(servers_config)
-            tools = mcp_clients.fetch_tools()
-            prompt_tools = [to_prompt_tool(tool) for tool in tools]
-            yield self.create_text_message(f"MCP Server tools list: \n{prompt_tools}")
+            result = mcp_clients.execute_tool(tool_name, arguments)
+            yield self.create_text_message(result)
         except Exception as e:
-            error_msg = f"Error listing MCP Server tools: {e}"
+            error_msg = f"Error calling MCP Server tool: {str(e)}"
             logging.error(error_msg)
             yield self.create_text_message(error_msg)
         finally:
             if mcp_clients:
                 mcp_clients.close()
-
-
-def to_prompt_tool(tool: dict) -> dict[str, Any]:
-    """
-    Tool to prompt message tool
-    """
-    return {
-        "name": tool.get("name"),
-        "description": tool.get("description", None),
-        "parameters": tool.get("inputSchema"),
-    }

@@ -3,18 +3,18 @@ type: plugin
 author: junjiem
 name: mcp_sse
 label:
-  en_US: MCP SSE
-  zh_Hans: MCP SSE
+  en_US: MCP SSE / StreamableHTTP
+  zh_Hans: MCP SSE / StreamableHTTP
 description:
-  en_US: Fetch and call tools by MCP protocol through HTTP with SSE transport.
-  zh_Hans: 通过 HTTP with SSE 传输使用 MCP 协议来发现和调用工具。
+  en_US: Fetch and call tools by MCP protocol through HTTP with SSE or Streamable HTTP transport.
+  zh_Hans: 通过 HTTP with SSE 或 Streamable HTTP 传输方式使用 MCP 协议来发现和调用工具。
 icon: icon.png
 resource:
   memory: 268435456
   permission: {}
 plugins:
   tools:
-    - provider/mcp_sse.yaml
+    - provider/mcp_tool.yaml
 tags:
   - utilities
 meta:
