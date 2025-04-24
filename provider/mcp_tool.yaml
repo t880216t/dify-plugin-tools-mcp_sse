@@ -21,7 +21,7 @@ credentials_for_provider:
     type: text-input
     required: true
     default: "{\n  \"server_name\": {\n    \"url\": \"http://127.0.0.1:8000/sse\",\n    \"headers\": {},\n
-      \"timeout\": 30,\n    \"sse_read_timeout\": 30\n  }\n}"
+      \"timeout\": 50,\n    \"sse_read_timeout\": 50\n  }\n}"
     label:
       en_US: MCP Servers config
       zh_Hans: MCP 服务配置

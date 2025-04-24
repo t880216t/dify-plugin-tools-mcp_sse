@@ -30,8 +30,8 @@ MCP服务配置，支持多个MCP服务。 如下示例：
     "transport": "sse",
     "url": "http://127.0.0.1:8000/sse",
     "headers": {},
-    "timeout": 30,
-    "sse_read_timeout": 30
+    "timeout": 50,
+    "sse_read_timeout": 50
   },
   "server_name2": {
     "transport": "sse",
@@ -41,7 +41,7 @@ MCP服务配置，支持多个MCP服务。 如下示例：
     "transport": "streamable_http",
     "url": "http://127.0.0.1:8002/mcp",
     "headers": {},
-    "timeout": 30
+    "timeout": 50
   },
   "server_name4": {
     "transport": "streamable_http",
@@ -57,8 +57,8 @@ OR
         "transport": "sse",
         "url": "http://127.0.0.1:8000/sse",
         "headers": {},
-        "timeout": 30,
-        "sse_read_timeout": 30
+        "timeout": 50,
+        "sse_read_timeout": 50
       },
       "server_name2": {
         "transport": "sse",
@@ -68,7 +68,7 @@ OR
         "transport": "streamable_http",
         "url": "http://127.0.0.1:8002/mcp",
         "headers": {},
-        "timeout": 30
+        "timeout": 50
       },
       "server_name4": {
         "transport": "streamable_http",
@@ -259,12 +259,12 @@ Github Repo: https://github.com/junjiem/dify-plugin-repackaging
 
 **Solution**: 
 - **Solution 1**: Modify `NGINX_KEEPALIVE_TIMEOUT` value in the .env file, for example: `NGINX_KEEPALIVE_TIMEOUT=650`.
-- **Solution 2**: Modify `MCP Servers config`, for example: `{...., "timeout": 30, "sse_read_timeout": 30}`.
+- **Solution 2**: Modify `MCP Servers config`, for example: `{...., "timeout": 50, "sse_read_timeout": 50}`.
 
 
 **问题描述**：设置的超时时间超过了Dify中默认的Nginx保持连接的超时时间65秒。
 
 **解决办法**：
 - **方案1**：修改 .env 文件中的 `NGINX_KEEPALIVE_TIMEOUT` 值，如：`NGINX_KEEPALIVE_TIMEOUT=650`。
-- **方案2**：修改 `MCP 服务配置`，例如：`{....， “timeout”： 30, "sse_read_timeout": 30}`。
+- **方案2**：修改 `MCP 服务配置`，例如：`{...., "timeout": 50, "sse_read_timeout": 50}`。
 
