@@ -364,7 +364,12 @@ class McpClients:
                     f"Progress: {progress}/{total} "
                     f"({percentage:.1f}%)"
                 )
-            return f"Tool execution result: {result}"
+            if isinstance(result, str):
+                return f"Tool execution result: {result}"
+            try:
+                return json.dumps(result, ensure_ascii=False)
+            except Exception as e:
+                return f"{result}"
         except Exception as e:
             error_msg = f"Error executing tool: {str(e)}"
             logging.error(error_msg)
