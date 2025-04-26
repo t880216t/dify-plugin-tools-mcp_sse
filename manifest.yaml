@@ -1,6 +1,6 @@
-version: 0.1.2
+version: 0.0.2
 type: plugin
-author: junjiem
+author: t880216t
 name: mcp_sse
 label:
   en_US: MCP SSE / StreamableHTTP

@@ -1,6 +1,6 @@
 identity:
   name: mcp_sse_list_tools
-  author: junjiem
+  author: t880216t
   label:
     en_US: Fetch MCP Tools
     zh_Hans: 获取 MCP 工具列表
